@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite verbose="1" name="test_suite">
+<suite verbose="1" name="core_test_suite">
 
-	<test name="test">
+	<test name="core">
 		<classes>			
 			<class name="org.mfh114.chashi.test.testng.AppTest" />
 		</classes>

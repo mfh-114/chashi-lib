@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<properties>
 		<!-- vendor -->
 		<vendor.name>MFH-114</vendor.name>
@@ -19,14 +19,14 @@
 
 	</properties>
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.mfh114.chashi</groupId>
-  <artifactId>chashi-lib</artifactId>
-  <packaging>jar</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>chashi-lib</name>
-  <url>https://github.com/mfh-114/chashi-lib</url>
-  <dependencies>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mfh114.chashi</groupId>
+	<artifactId>chashi-lib</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>chashi-lib</name>
+	<url>https://github.com/mfh-114/chashi-lib</url>
+	<dependencies>
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -58,11 +58,11 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>1.7.7</version>
 		</dependency>
-  </dependencies>
+	</dependencies>
 	<build>
 
 		<finalName>${project.artifactId}-${project.version}</finalName>
-  <plugins>
+		<plugins>
 			<!-- Jar plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -95,7 +95,7 @@
 			</plugin>
 
 			<!-- Surefire plugin -->
-			<!-- plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.17</version>
@@ -104,7 +104,7 @@
 						<suiteXmlFile>test-suite/testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
-			</plugin -->
-  </plugins>
- </build>
+			</plugin>
+		</plugins>
+	</build>
 </project>

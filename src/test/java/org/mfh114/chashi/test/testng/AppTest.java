@@ -1,4 +1,4 @@
-package org.mfh114.chashi;
+package org.mfh114.chashi.test.testng;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
