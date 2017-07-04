@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite verbose="1" name="test_suite">
+
+	<test name="test">
+		<classes>			
+			<class name="org.mfh114.chashi.test.testng.AppTest" />
+		</classes>
+	</test>
+
+</suite>
+
