@@ -3,8 +3,9 @@
 <suite verbose="1" name="core_test_suite">
 
 	<test name="core">
-		<classes>			
-			<class name="org.mfh114.chashi.test.testng.AppTest" />
+		<classes>
+			<class name="org.mfh114.chashi.test.testng.VertexTester" />			
+			<class name="org.mfh114.chashi.test.testng.GraphTester" />
 		</classes>
 	</test>
 
