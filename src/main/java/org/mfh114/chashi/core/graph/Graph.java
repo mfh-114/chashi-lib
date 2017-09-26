@@ -1,4 +1,4 @@
-package org.mfh114.chashi.core;
+package org.mfh114.chashi.core.graph;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,11 +13,13 @@ public class Graph {
 	private int sequenceIndex;
 	private List<Vertex> vertexList;
 	private MultiValueMap vertexConnections;
+	private MultiValueMap vertexEventListenerMap;
 
 	public Graph() {
 		this.sequenceIndex = 0;
 		this.vertexList = new ArrayList<Vertex>();
 		this.vertexConnections = new MultiValueMap();
+		this.vertexEventListenerMap = new MultiValueMap();
 	}
 
 	public Vertex createVertex(String name) {

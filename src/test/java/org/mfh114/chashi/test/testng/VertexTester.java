@@ -1,7 +1,7 @@
 package org.mfh114.chashi.test.testng;
 
-import org.mfh114.chashi.core.Graph;
-import org.mfh114.chashi.core.Vertex;
+import org.mfh114.chashi.core.graph.Graph;
+import org.mfh114.chashi.core.graph.Vertex;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

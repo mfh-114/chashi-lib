@@ -1,4 +1,4 @@
-package org.mfh114.chashi.core;
+package org.mfh114.chashi.core.graph;
 
 class VertexImpl implements Vertex {
 
