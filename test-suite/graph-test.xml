@@ -4,7 +4,7 @@
 
 	<test name="core">
 		<classes>
-			<class name="org.mfh114.chashi.test.testng.AppTest" />
+			<class name="org.mfh114.chashi.test.testng.GraphFactoryTest" />
 		</classes>
 	</test>
 

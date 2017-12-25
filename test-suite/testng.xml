@@ -3,7 +3,7 @@
 <suite verbose="1" name="chashi-lib-test_suite">
 
 	<suite-files>
-		<suite-file path="core-test.xml" />
+		<suite-file path="graph-test.xml" />
 	</suite-files>
 
 </suite>
