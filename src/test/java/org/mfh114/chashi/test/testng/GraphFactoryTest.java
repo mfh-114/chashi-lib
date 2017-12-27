@@ -13,7 +13,7 @@ public class GraphFactoryTest {
 
 	@BeforeMethod
 	public void setup() {
-		graphFactory = new GraphFactory();
+		this.graphFactory = new GraphFactory();
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class GraphFactoryTest {
 
 		Assert.assertEquals(graphFactory.getVertexList().size(), 2);
 	}
-	
+
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void verifyVertexNotUniqueName() {
 

@@ -1,12 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite verbose="1" name="core_test_suite">
-
+	
 	<test name="core">
 		<classes>
 			<class name="org.mfh114.chashi.test.testng.GraphFactoryTest" />
+			<class name="org.mfh114.chashi.test.testng.VertexTest" />
 		</classes>
 	</test>
-
+	
 </suite>
 

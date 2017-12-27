@@ -3,15 +3,20 @@ package org.mfh114.chashi.graph;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mfh114.chashi.validator.ValidatorException;
+import org.mfh114.chashi.validator.VertexImplValidator;
+
 public class GraphFactory {
 
 	public List<Vertex> vertexList;
+	private VertexImplValidator vertexImplValidator;
 
 	/***
 	 * Create default GraphFactory instance
 	 */
 	public GraphFactory() {
 		this.vertexList = new ArrayList<>();
+		this.vertexImplValidator = new VertexImplValidator();
 	}
 
 	/***
@@ -20,9 +25,12 @@ public class GraphFactory {
 	 * @param name
 	 *            Vertex name. it is required value and it should be unique.
 	 * 
+	 * @throws ValidatorException
+	 *             could be thrown if parameters are not valid.
+	 * 
 	 * @return Vertex
 	 */
-	public Vertex createVertex(String name) {
+	public Vertex createVertex(String name) throws ValidatorException {
 		return createVertex(name, null);
 	}
 
@@ -35,14 +43,18 @@ public class GraphFactory {
 	 *            Vertex object may carry data value as String. It is an
 	 *            optional value.
 	 * 
+	 * @throws ValidatorException
+	 *             could be thrown if parameters are not valid.
+	 * 
 	 * @return Vertex
 	 */
-	public Vertex createVertex(String name, String valueStr) {
+	public Vertex createVertex(String name, String valueStr) throws ValidatorException {
 
 		Vertex v = new VertexImpl(name, valueStr);
 
-		// check vertex name uniqueness
-		verifyVertexNameUniquess(name);
+		// validate the vertex with last vertex list
+		vertexImplValidator.setVertexList(vertexList);
+		vertexImplValidator.validate(v);
 
 		// add vertex to list
 		vertexList.add(v);
@@ -54,12 +66,4 @@ public class GraphFactory {
 		return vertexList;
 	}
 
-	private void verifyVertexNameUniquess(String vName) throws IllegalArgumentException {
-
-		for (Vertex v : vertexList) {
-			if (v.getVertexName().equals(vName))
-				throw new IllegalArgumentException(
-						"Vertex is already create with this name: " + vName + ". Please use unique vertex name.");
-		}
-	}
 }
