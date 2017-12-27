@@ -3,6 +3,7 @@ package org.mfh114.chashi.test.testng;
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexCallback;
+import org.mfh114.chashi.validator.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -75,10 +76,10 @@ public class GraphFactoryTest {
 		Assert.assertEquals(graphFactory.getVertexList().size(), 2);
 	}
 
-	@Test(expectedExceptions = IllegalArgumentException.class)
+	@Test(expectedExceptions = ValidatorException.class)
 	public void verifyVertexNotUniqueName() {
 
-		System.out.println("Verify vertex is not unique name. Expected IllegalArgumentException expection ...");
+		System.out.println("Verify vertex is not unique name. Expected ValidatorException expection ...");
 
 		graphFactory.createVertex("v1");
 		graphFactory.createVertex("v1");
