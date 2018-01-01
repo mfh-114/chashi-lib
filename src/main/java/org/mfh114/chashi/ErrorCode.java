@@ -11,6 +11,7 @@ public enum ErrorCode {
 	/** All 400 category error are caused because of invalid user input */
 	REQUIRED_PARAM("ERR400", "Parameter required."), 
 	DUP_VERTEX_NAME("ERR401", "Duplicate vertex name."),
+	INVALID_VERTEX_NAME("ERR402", "Invalid vertex name."),
 
 	/** All 500 category error are caused by programming error */
 	INTERNAL_ERROR("ERR500", "Internal error.");

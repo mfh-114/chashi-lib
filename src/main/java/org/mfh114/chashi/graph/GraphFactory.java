@@ -6,10 +6,11 @@ import java.util.List;
 import org.mfh114.chashi.validator.ValidatorException;
 import org.mfh114.chashi.validator.VertexImplValidator;
 
-public class GraphFactory {
+public class GraphFactory<T> {
 
-	public List<Vertex> vertexList;
+	private List<Vertex> vertexList;
 	private VertexImplValidator vertexImplValidator;
+	private VertexConnectionImpl vertexConnectionImpl;
 
 	/***
 	 * Create default GraphFactory instance
@@ -62,8 +63,34 @@ public class GraphFactory {
 		return v;
 	}
 
+	/***
+	 * Get list of created vertexes.
+	 * 
+	 * @return {@link List} of vertexes
+	 */
 	public List<Vertex> getVertexList() {
 		return vertexList;
 	}
 
+	/***
+	 * Create and get vertex connection implementation based on the
+	 * representation type of the graph.
+	 * 
+	 * @param vertexList
+	 * @return {@link VertexConnection}
+	 */
+	public VertexConnection createVertexConnection(List<Vertex> vertexList) {
+		vertexConnectionImpl = new VertexConnectionImpl(vertexList);
+		return vertexConnectionImpl;
+	}
+
+	/**
+	 * Get connected vertex representation.
+	 * 
+	 * @return Graph representation.
+	 */
+	@SuppressWarnings("unchecked")
+	public T getRepresentation() {
+		return (T) vertexConnectionImpl.represent();
+	}
 }
