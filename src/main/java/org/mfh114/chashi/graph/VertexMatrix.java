@@ -2,97 +2,83 @@ package org.mfh114.chashi.graph;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.mfh114.chashi.ChashiException;
-import org.mfh114.chashi.ErrorCode;
 
 public class VertexMatrix {
 
 	// key = vertex name, value = list of vertexes
-	private final Map<String, List<Vertex>> rowMap;
-	private final Map<String, List<Vertex>> columnMap;
+	private List<List<Integer>> matrix = new ArrayList<List<Integer>>();
+	private List<String> vertexNames = new ArrayList<String>();
+	private List<String> sortedVertex = new ArrayList<String>();
 
-	public VertexMatrix(Map<String, List<Vertex>> rowMap, Map<String, List<Vertex>> columnMap) {
-		this.rowMap = rowMap;
-		this.columnMap = columnMap;
+	public VertexMatrix(List<String> vertexNames) {
+		this.vertexNames = vertexNames;
 	}
 
-	public List<Vertex> getRow(Vertex key) {
-		if (StringUtils.isBlank(key.getVertexName()))
-			return new ArrayList<Vertex>(1);
-
-		if (rowMap.containsKey(key.getVertexName()))
-			return rowMap.get(key.getVertexName());
-		else
-			return new ArrayList<Vertex>(1);
-
+	public void createColumn() {
+		for (int i = 0; i < vertexNames.size(); i++) {
+			List<Integer> col = new ArrayList<Integer>();
+			matrix.add(i, col);
+		}
 	}
 
-	public List<Vertex> getColumn(Vertex key) {
-		if (StringUtils.isBlank(key.getVertexName()))
-			return new ArrayList<Vertex>(1);
+	public List<Integer> getColumn(String vertexName) {
 
-		if (columnMap.containsKey(key.getVertexName()))
-			return columnMap.get(key.getVertexName());
-		else
-			return new ArrayList<Vertex>(1);
+		return matrix.get(indexOfSearchVertexName(vertexName));
 	}
 
-	public int IndexOfInRowMap(Vertex v) {
+	public boolean isEmptyColumn() {
+		boolean isEmpty = false;
+		for (int i = 0; i < vertexNames.size(); i++) {
+			List<Integer> colForScan = matrix.get(i);
+			if (colForScan.isEmpty()) {
+				sortedVertex.add(vertexNames.get(i));
+				isEmpty = true;
 
-		if (v == null)
-			throw new ChashiException(ErrorCode.REQUIRED_PARAM, "Vertex is reuqired.");
+				// remove the entire empty column
+				matrix.remove(i);
 
-		if (StringUtils.isBlank(v.getVertexName()))
-			throw new ChashiException(ErrorCode.REQUIRED_PARAM, "Vertex name is reuqired.");
-
-		int index = -1;
-		if (rowMap.containsKey(v.getVertexName())) {
-
-			List<Vertex> rowMapVertexes = rowMap.get(v.getVertexName());
-			if (rowMapVertexes != null && !rowMapVertexes.isEmpty()) {
-				for (int i = 0; i < rowMapVertexes.size(); i++) {
-					if (StringUtils.equals(rowMapVertexes.get(i).getVertexName(), v.getVertexName())) {
-						index = i;
-						break;
-					}
+				// remove the row of position i th (empty column position)
+				// ignore if other column's row is empty in that position
+				for (int j = 0; j < matrix.size(); i++) {
+					// remove i th position row from each column (j)
+					if (!matrix.get(j).isEmpty())
+						matrix.get(j).remove(i);
 				}
+
+				break;
 			}
 		}
-		return index;
+		return isEmpty;
 	}
 
-	public int IndexOfInColumnMap(Vertex v) {
+	public void populateColumn(Vertex fromVertex, List<Vertex> toVertexes) {
+		// "from" vertex is row vertex. We need to know which row index.
+		// "to" vertexes are the columns. Using "from" vertex row index, the
+		// column list specific indexes will be populated.
 
-		if (v == null)
-			throw new ChashiException(ErrorCode.REQUIRED_PARAM, "Vertex is reuqired.");
+		int rowIndex = indexOfSearchVertexName(fromVertex.getVertexName());
 
-		if (StringUtils.isBlank(v.getVertexName()))
-			throw new ChashiException(ErrorCode.REQUIRED_PARAM, "Vertex name is reuqired.");
+		for (Vertex colVertex : toVertexes) {
+			int colIndex = indexOfSearchVertexName(colVertex.getVertexName());
 
-		int index = -1;
-		if (rowMap.containsKey(v.getVertexName())) {
+			matrix.get(colIndex).add(rowIndex, 1);
+		}
+	}
 
-			List<Vertex> colMapVertexes = rowMap.get(v.getVertexName());
-			if (colMapVertexes != null && !colMapVertexes.isEmpty()) {
-				for (int i = 0; i < colMapVertexes.size(); i++) {
-					if (StringUtils.equals(colMapVertexes.get(i).getVertexName(), v.getVertexName())) {
-						index = i;
-						break;
-					}
-				}
+	private int indexOfSearchVertexName(String vertexName) {
+		int indexOfVertexName = -1;
+		for (int i = 0; i < vertexNames.size(); i++) {
+			if (vertexNames.get(i) != null && vertexNames.equals(vertexName)) {
+				indexOfVertexName = i;
+				break;
 			}
 		}
-		return index;
+		return indexOfVertexName;
 	}
 
 	public void clear() {
-		if (rowMap != null)
-			rowMap.clear();
-
-		if (columnMap != null)
-			columnMap.clear();
+		if (matrix != null)
+			matrix.clear();
+		matrix = null;
 	}
 }

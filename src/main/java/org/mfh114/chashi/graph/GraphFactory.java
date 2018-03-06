@@ -83,14 +83,4 @@ public class GraphFactory<T> {
 		vertexConnectionImpl = new VertexConnectionImpl(vertexList);
 		return vertexConnectionImpl;
 	}
-
-	/**
-	 * Get connected vertex representation.
-	 * 
-	 * @return Graph representation.
-	 */
-	@SuppressWarnings("unchecked")
-	public T getRepresentation() {
-		return (T) vertexConnectionImpl.represent();
-	}
 }

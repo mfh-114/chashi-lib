@@ -1,8 +1,5 @@
 package org.mfh114.chashi.test.testng;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexCallback;
@@ -91,13 +88,4 @@ public class GraphFactoryTest {
 		Assert.assertEquals(graphFactory.getVertexList().size(), 2);
 	}
 
-	@Test
-	public void verifyGraphRepresentionNotNull() {
-		System.out.println("Verify graph representation is not null ...");
-
-		List<Vertex> vertexList = Arrays.asList(graphFactory.createVertex("v1"), graphFactory.createVertex("v2"));
-		graphFactory.createVertexConnection(vertexList);
-
-		Assert.assertNotNull(graphFactory.getRepresentation());
-	}
 }
