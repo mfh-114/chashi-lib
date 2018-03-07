@@ -15,8 +15,8 @@ class VertexConnectionImpl implements VertexConnection {
 	public VertexConnectionImpl(List<Vertex> vertexes) {
 
 		matrix = new VertexMatrix(vertexes.stream().map(a -> a.getVertexName()).collect(Collectors.toList()));
-		matrix.createColumn();
-
+		matrix.init();
+		
 		this.startVertex = null;
 		this.endVertexes = new ArrayList<Vertex>();
 	}
@@ -40,11 +40,15 @@ class VertexConnectionImpl implements VertexConnection {
 	}
 
 	@Override
-	public VertexConnection connect() throws InvalidVertexNameException {
+	public void connect() throws InvalidVertexNameException {
 
 		matrix.populateColumn(startVertex, endVertexes);
 
-		return this;
+		//return this;
+	}
+
+	public VertexMatrix getVertexMatrix() {
+		return matrix;
 	}
 
 	public void clear() {

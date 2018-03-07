@@ -14,9 +14,14 @@ public class VertexMatrix {
 		this.vertexNames = vertexNames;
 	}
 
-	public void createColumn() {
+	public void init() {
 		for (int i = 0; i < vertexNames.size(); i++) {
+
 			List<Integer> col = new ArrayList<Integer>();
+
+			for (int j = 0; j < vertexNames.size(); j++)
+				col.add(0);
+
 			matrix.add(i, col);
 		}
 	}
@@ -26,6 +31,7 @@ public class VertexMatrix {
 		return matrix.get(indexOfSearchVertexName(vertexName));
 	}
 
+	// TODO: Need to be modified by row instead of column
 	public boolean isEmptyColumn() {
 		boolean isEmpty = false;
 		for (int i = 0; i < vertexNames.size(); i++) {
@@ -61,14 +67,15 @@ public class VertexMatrix {
 		for (Vertex colVertex : toVertexes) {
 			int colIndex = indexOfSearchVertexName(colVertex.getVertexName());
 
-			matrix.get(colIndex).add(rowIndex, 1);
+			// set is used to replace the value 0 by 1
+			matrix.get(colIndex).set(rowIndex, 1);
 		}
 	}
 
 	private int indexOfSearchVertexName(String vertexName) {
 		int indexOfVertexName = -1;
 		for (int i = 0; i < vertexNames.size(); i++) {
-			if (vertexNames.get(i) != null && vertexNames.equals(vertexName)) {
+			if (vertexNames.get(i) != null && vertexNames.get(i).equals(vertexName)) {
 				indexOfVertexName = i;
 				break;
 			}

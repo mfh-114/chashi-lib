@@ -6,7 +6,9 @@ public interface VertexConnection {
 
 	public VertexConnection to(Vertex... v);
 
-	public VertexConnection connect();
+	public void connect();
+	
+	public VertexMatrix getVertexMatrix();
 
 	public void clear();
 }
