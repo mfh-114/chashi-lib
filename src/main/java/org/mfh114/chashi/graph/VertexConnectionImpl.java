@@ -2,7 +2,6 @@ package org.mfh114.chashi.graph;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 class VertexConnectionImpl implements VertexConnection {
 
@@ -12,10 +11,10 @@ class VertexConnectionImpl implements VertexConnection {
 	private Vertex startVertex;
 	private List<Vertex> endVertexes;
 
-	public VertexConnectionImpl(List<Vertex> vertexes) {
+	public VertexConnectionImpl(List<Vertex> vertexes, VertexMatrix matrix) {
 
-		matrix = new VertexMatrix(vertexes.stream().map(a -> a.getVertexName()).collect(Collectors.toList()));
-		matrix.init();
+		this.matrix = matrix;
+		this.matrix.init();
 		
 		this.startVertex = null;
 		this.endVertexes = new ArrayList<Vertex>();

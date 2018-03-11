@@ -8,7 +8,5 @@ public interface VertexConnection {
 
 	public void connect();
 	
-	public VertexMatrix getVertexMatrix();
-
 	public void clear();
 }

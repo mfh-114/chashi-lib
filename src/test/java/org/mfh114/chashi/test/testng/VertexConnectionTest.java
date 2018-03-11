@@ -6,7 +6,6 @@ import java.util.List;
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexConnection;
-import org.mfh114.chashi.graph.VertexMatrix;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -14,7 +13,7 @@ import org.testng.annotations.Test;
 
 public class VertexConnectionTest {
 
-	private GraphFactory<VertexMatrix> graphFactory;
+	private GraphFactory graphFactory;
 	private Vertex v1, v2, v3, v4, v5;
 	private List<Vertex> vertexes;
 
@@ -23,7 +22,7 @@ public class VertexConnectionTest {
 
 		System.out.println("Created 5 vertexes graph ...");
 
-		graphFactory = new GraphFactory<VertexMatrix>();
+		graphFactory = new GraphFactory();
 		v1 = graphFactory.createVertex("v1");
 		v2 = graphFactory.createVertex("v2");
 		v3 = graphFactory.createVertex("v3");
@@ -68,15 +67,13 @@ public class VertexConnectionTest {
 	public void verifyConnectionFromV1ToV2_V3() {
 		System.out.println("Verify vertex connection from v1 to v2 and v3...");
 
-		VertexConnection vConn = graphFactory.createVertexConnection(vertexes);
+		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(v1).to(v2, v3).connect();
 
-		VertexMatrix vM = vConn.getVertexMatrix();
-
-		List<Integer> colB = vM.getColumn(v2.getVertexName());
+		List<Integer> colB = graphFactory.representToMatrixColumn(v2);
 		Assert.assertEquals(colB.get(0), new Integer(1));
 
-		List<Integer> colC = vM.getColumn(v3.getVertexName());
+		List<Integer> colC = graphFactory.representToMatrixColumn(v3);
 		Assert.assertEquals(colC.get(0), new Integer(1));
 	}
 
@@ -84,15 +81,13 @@ public class VertexConnectionTest {
 	public void verifyConnectionFromV2ToV3_V4() {
 		System.out.println("Verify vertex connection v2 to v3 and v4...");
 
-		VertexConnection vConn = graphFactory.createVertexConnection(vertexes);
+		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(v2).to(v3, v4).connect();
 
-		VertexMatrix vM = vConn.getVertexMatrix();
-
-		List<Integer> colB = vM.getColumn(v3.getVertexName());
+		List<Integer> colB = graphFactory.representToMatrixColumn(v3);
 		Assert.assertEquals(colB.get(1), new Integer(1));
 
-		List<Integer> colC = vM.getColumn(v4.getVertexName());
+		List<Integer> colC = graphFactory.representToMatrixColumn(v4);
 		Assert.assertEquals(colC.get(1), new Integer(1));
 	}
 
@@ -100,12 +95,10 @@ public class VertexConnectionTest {
 	public void verifyConnectionFromv3Tov5() {
 		System.out.println("Verify vertex connection v3 to v5...");
 
-		VertexConnection vConn = graphFactory.createVertexConnection(vertexes);
+		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(v3).to(v5).connect();
 
-		VertexMatrix vM = vConn.getVertexMatrix();
-
-		List<Integer> colB = vM.getColumn(v5.getVertexName());
+		List<Integer> colB = graphFactory.representToMatrixColumn(v5);
 		Assert.assertEquals(colB.get(2), new Integer(1));
 	}
 }

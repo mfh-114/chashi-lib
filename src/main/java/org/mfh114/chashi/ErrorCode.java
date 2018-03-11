@@ -12,6 +12,7 @@ public enum ErrorCode {
 	REQUIRED_PARAM("ERR400", "Parameter required."), 
 	DUP_VERTEX_NAME("ERR401", "Duplicate vertex name."),
 	INVALID_VERTEX_NAME("ERR402", "Invalid vertex name."),
+	GRAPH_IN_LOOP("ERR406","Graph in loop"),
 
 	/** All 500 category error are caused by programming error */
 	INTERNAL_ERROR("ERR500", "Internal error.");

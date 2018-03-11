@@ -3,7 +3,6 @@ package org.mfh114.chashi.test.testng;
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexCallback;
-import org.mfh114.chashi.graph.VertexMatrix;
 import org.mfh114.chashi.validator.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -11,11 +10,11 @@ import org.testng.annotations.Test;
 
 public class GraphFactoryTest {
 
-	private GraphFactory<VertexMatrix> graphFactory;
+	private GraphFactory graphFactory;
 
 	@BeforeMethod
 	public void setup() {
-		this.graphFactory = new GraphFactory<VertexMatrix>();
+		this.graphFactory = new GraphFactory();
 	}
 
 	@Test

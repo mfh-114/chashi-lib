@@ -6,11 +6,13 @@ import java.util.List;
 import org.mfh114.chashi.validator.ValidatorException;
 import org.mfh114.chashi.validator.VertexImplValidator;
 
-public class GraphFactory<T> {
+public class GraphFactory {
 
 	private List<Vertex> vertexList;
 	private VertexImplValidator vertexImplValidator;
 	private VertexConnectionImpl vertexConnectionImpl;
+	private VertexMatrix matrix;
+	private Sorter sorter;
 
 	/***
 	 * Create default GraphFactory instance
@@ -79,8 +81,17 @@ public class GraphFactory<T> {
 	 * @param vertexList
 	 * @return {@link VertexConnection}
 	 */
-	public VertexConnection createVertexConnection(List<Vertex> vertexList) {
-		vertexConnectionImpl = new VertexConnectionImpl(vertexList);
+	public VertexConnection createVertexConnection() {
+		this.vertexConnectionImpl = new VertexConnectionImpl(vertexList, matrix);
 		return vertexConnectionImpl;
+	}
+
+	public List<Integer> representToMatrixColumn(Vertex vertex) {
+		return matrix.getColumn(vertex.getVertexName());
+	}
+
+	public Sorter createTopologicalSorter() {
+		this.sorter = new TopologicalSorter(vertexList, matrix);
+		return sorter;
 	}
 }
