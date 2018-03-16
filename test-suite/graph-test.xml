@@ -6,6 +6,8 @@
 		<classes>
 			<class name="org.mfh114.chashi.test.testng.GraphFactoryTest" />
 			<class name="org.mfh114.chashi.test.testng.VertexTest" />
+			<class name="org.mfh114.chashi.test.testng.VertexConnectionTest" />
+			<class name="org.mfh114.chashi.test.testng.SorterTest" />			
 		</classes>
 	</test>
 	

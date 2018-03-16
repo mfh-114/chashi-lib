@@ -25,57 +25,64 @@ class TopologicalSorter implements Sorter {
 
 	@Override
 	public List<Vertex> sort(boolean triggerEvent) throws ChashiException {
-		while (true) {
 
-			// Hold the group of empty columns. At least one or multiple
-			// column can be empty per iteration
-			List<Integer> emptyCols = new ArrayList<Integer>();
+		System.out.println("Size: " + matrix.size());
 
-			// cols
-			for (int i = 0; i < matrix.getMatrix().size(); i++) {
+		// In this case, matrix size is same as the row and column.
+		int rowSize = matrix.size();
+		int colSize = rowSize;
 
-				List<Integer> cols = matrix.getMatrix().get(i);
+		while (sortedVertexIndexList.size() < vertexList.size()) {
+			// Hold the group of 0 value columns. At least one or multiple
+			// column can be zero per iteration
+			List<Integer> zeroValueCols = new ArrayList<Integer>();
+			int colIndex = 0;
+			while (colIndex < colSize) {
 
-				// rows of the column
-				int sum = cols.parallelStream().mapToInt(e -> e.intValue()).sum();
+				// skip the process of the column index, if sorted vertex
+				// already
+				// contains the the same index. Which means, it is already
+				// preocessed previously, we will skip this index.
+				if (!sortedVertexIndexList.contains(colIndex)) {
+					int rowIndex = 0;
+					int sum = 0;
+					while (rowIndex < rowSize) {
 
-				// if sum is greater than 0 then one or multiple rows contain 1
-				// of the specific column
-				if (sum > 0) {
-					continue;
-				} else {
-					emptyCols.add(i);
-				}
-			}
+						sum += matrix.getMatrix()[rowIndex][colIndex];
 
-			if (emptyCols != null && !emptyCols.isEmpty()) {
-
-				// add vertex to sorted vertex
-				sortedVertexGroupIndex.add(emptyCols);
-				sortedVertexIndexList.addAll(emptyCols);
-
-				// remove the entire empty column
-				for (int x = 0; x < emptyCols.size(); x++) {
-					int pos = emptyCols.get(x);
-					matrix.getMatrix().remove(pos);
-
-					// remove the row of position i th (empty column position)
-					// ignore if other column's row is empty in that position
-					for (int j = 0; j < matrix.getMatrix().size(); j++) {
-						// remove indexToRm th position row from each column (j)
-						if (!matrix.getMatrix().get(j).isEmpty())
-							matrix.getMatrix().get(j).remove(pos);
+						rowIndex++;
 					}
+					// if sum is greater than 0 then one or multiple rows
+					// contain 1
+					// of the specific column index
+					if (sum == 0)
+						zeroValueCols.add(colIndex);
 				}
-			} else {
-				throw new ChashiException(ErrorCode.GRAPH_IN_LOOP, "Cannot perform topological sort.");
+
+				colIndex++;
 			}
 
-			// break when matrix is empty
-			if (matrix.getMatrix().isEmpty())
-				break;
+			if (zeroValueCols != null && !zeroValueCols.isEmpty()) {
+				// add vertex to sorted vertex
+				sortedVertexGroupIndex.add(zeroValueCols);
+				sortedVertexIndexList.addAll(zeroValueCols);
+
+				// set entire row to 0. So 0 column index will be used to get
+				// target
+				// row which all cells will be zero.
+				for (int i = 0; i < zeroValueCols.size(); i++)
+					matrix.setRowToZero(zeroValueCols.get(i));
+			} else {
+				// at least one entire column must be 0 otherwise graph is in
+				// loop
+				matrix.clear();
+				throw new ChashiException(ErrorCode.DUP_VERTEX_NAME, "Cannot procced. Graph is in loop.");
+			}
 		}
 
+		matrix.clear();
+
+		System.out.println(sortedVertexIndexList.toString());
 		System.out.println(sortedVertexGroupIndex.toString());
 
 		// --------------------------------------------------

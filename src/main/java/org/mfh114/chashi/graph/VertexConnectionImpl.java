@@ -10,13 +10,12 @@ class VertexConnectionImpl implements VertexConnection {
 
 	private Vertex startVertex;
 	private List<Vertex> endVertexes;
+	private List<Vertex> vertexList;
 
-	public VertexConnectionImpl(List<Vertex> vertexes, VertexMatrix matrix) {
-
+	public VertexConnectionImpl(List<Vertex> vertexList, VertexMatrix matrix) {
 		this.matrix = matrix;
-		this.matrix.init();
-		
 		this.startVertex = null;
+		this.vertexList = vertexList;
 		this.endVertexes = new ArrayList<Vertex>();
 	}
 
@@ -43,7 +42,7 @@ class VertexConnectionImpl implements VertexConnection {
 
 		matrix.populateColumn(startVertex, endVertexes);
 
-		//return this;
+		// return this;
 	}
 
 	public VertexMatrix getVertexMatrix() {
@@ -53,5 +52,27 @@ class VertexConnectionImpl implements VertexConnection {
 	public void clear() {
 		if (matrix != null)
 			matrix.clear();
+	}
+
+	@Override
+	public List<Vertex> getConnectedVertexesOf(Vertex targetVertex) {
+
+		int index = vertexList.indexOf(targetVertex);
+
+		int[] columnIndexesArr = matrix.getMatrix()[index];
+
+		List<Vertex> columIndexes = new ArrayList<Vertex>();
+		for (int i = 0; i < columnIndexesArr.length; i++) {
+
+			// get i th index of the vertex where matrix value is 1
+			int value = matrix.getMatrix()[index][i];
+			if (value == 0)
+				continue;
+
+			Vertex v = vertexList.get(i);
+			columIndexes.add(v);
+		}
+
+		return columIndexes;
 	}
 }

@@ -1,6 +1,5 @@
 package org.mfh114.chashi.test.testng;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.mfh114.chashi.graph.GraphFactory;
@@ -15,7 +14,6 @@ public class VertexConnectionTest {
 
 	private GraphFactory graphFactory;
 	private Vertex v1, v2, v3, v4, v5;
-	private List<Vertex> vertexes;
 
 	@BeforeTest
 	public void contruct() {
@@ -29,7 +27,6 @@ public class VertexConnectionTest {
 		v4 = graphFactory.createVertex("v4");
 		v5 = graphFactory.createVertex("v5");
 
-		vertexes = Arrays.asList(v1, v2, v3, v4, v5);
 	}
 
 	@AfterTest
@@ -70,11 +67,9 @@ public class VertexConnectionTest {
 		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(v1).to(v2, v3).connect();
 
-		List<Integer> colB = graphFactory.representToMatrixColumn(v2);
-		Assert.assertEquals(colB.get(0), new Integer(1));
-
-		List<Integer> colC = graphFactory.representToMatrixColumn(v3);
-		Assert.assertEquals(colC.get(0), new Integer(1));
+		List<Vertex> col = vConn.getConnectedVertexesOf(v1);
+		Assert.assertEquals(col.get(0), v2);
+		Assert.assertEquals(col.get(1), v3);
 	}
 
 	@Test
@@ -84,11 +79,9 @@ public class VertexConnectionTest {
 		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(v2).to(v3, v4).connect();
 
-		List<Integer> colB = graphFactory.representToMatrixColumn(v3);
-		Assert.assertEquals(colB.get(1), new Integer(1));
-
-		List<Integer> colC = graphFactory.representToMatrixColumn(v4);
-		Assert.assertEquals(colC.get(1), new Integer(1));
+		List<Vertex> col = vConn.getConnectedVertexesOf(v2);
+		Assert.assertEquals(col.get(0), v3);
+		Assert.assertEquals(col.get(1), v4);
 	}
 
 	@Test
@@ -98,7 +91,7 @@ public class VertexConnectionTest {
 		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(v3).to(v5).connect();
 
-		List<Integer> colB = graphFactory.representToMatrixColumn(v5);
-		Assert.assertEquals(colB.get(2), new Integer(1));
+		List<Vertex> col = vConn.getConnectedVertexesOf(v3);
+		Assert.assertEquals(col.get(0), v5);
 	}
 }

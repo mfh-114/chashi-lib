@@ -2,6 +2,7 @@ package org.mfh114.chashi.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.mfh114.chashi.validator.ValidatorException;
 import org.mfh114.chashi.validator.VertexImplValidator;
@@ -82,12 +83,10 @@ public class GraphFactory {
 	 * @return {@link VertexConnection}
 	 */
 	public VertexConnection createVertexConnection() {
+		this.matrix = new VertexMatrix(vertexList.stream().map(v -> v.getVertexName()).collect(Collectors.toList()));
+		this.matrix.init();
 		this.vertexConnectionImpl = new VertexConnectionImpl(vertexList, matrix);
 		return vertexConnectionImpl;
-	}
-
-	public List<Integer> representToMatrixColumn(Vertex vertex) {
-		return matrix.getColumn(vertex.getVertexName());
 	}
 
 	public Sorter createTopologicalSorter() {

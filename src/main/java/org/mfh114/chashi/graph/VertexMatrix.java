@@ -3,10 +3,13 @@ package org.mfh114.chashi.graph;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mfh114.chashi.ChashiException;
+import org.mfh114.chashi.ErrorCode;
+
 class VertexMatrix {
 
-	// key = vertex name, value = list of vertexes
-	private List<List<Integer>> matrix = new ArrayList<List<Integer>>();
+	private int[][] matrix = null;
+	private int size = 0;
 	private List<String> vertexNames = new ArrayList<String>();
 
 	public VertexMatrix(List<String> vertexNames) {
@@ -14,24 +17,33 @@ class VertexMatrix {
 	}
 
 	public void init() {
-		for (int i = 0; i < vertexNames.size(); i++) {
 
-			List<Integer> col = new ArrayList<Integer>();
+		if (this.vertexNames == null || this.vertexNames.isEmpty())
+			throw new ChashiException(ErrorCode.INTERNAL_ERROR, "Vertex names list is not set.");
 
+		this.size = vertexNames.size();
+
+		// initialize matrix arrays
+		matrix = new int[size][size];
+
+		// populate the matrix by 0
+		for (int i = 0; i < vertexNames.size(); i++)
 			for (int j = 0; j < vertexNames.size(); j++)
-				col.add(0);
-
-			matrix.add(i, col);
-		}
+				matrix[i][j] = 0;
 	}
 
-	public List<Integer> getColumn(String vertexName) {
-
-		return matrix.get(indexOfSearchVertexName(vertexName));
-	}
-
-	public List<List<Integer>> getMatrix() {
+	public int[][] getMatrix() {
 		return matrix;
+	}
+
+	/****
+	 * Size of the matrix. In this case, row and column will be same size which
+	 * is same as total number of vertexes.
+	 * 
+	 * @return size
+	 */
+	public int size() {
+		return size;
 	}
 
 	public void populateColumn(Vertex fromVertex, List<Vertex> toVertexes) {
@@ -39,30 +51,38 @@ class VertexMatrix {
 		// "to" vertexes are the columns. Using "from" vertex row index, the
 		// column list specific indexes will be populated.
 
-		int rowIndex = indexOfSearchVertexName(fromVertex.getVertexName());
+		int rowIndex = indexOfVertex(fromVertex.getVertexName());
 
 		for (Vertex colVertex : toVertexes) {
-			int colIndex = indexOfSearchVertexName(colVertex.getVertexName());
+			int colIndex = indexOfVertex(colVertex.getVertexName());
 
 			// set is used to replace the value 0 by 1
-			matrix.get(colIndex).set(rowIndex, 1);
+			matrix[rowIndex][colIndex] = 1;
 		}
 	}
 
-	private int indexOfSearchVertexName(String vertexName) {
-		int indexOfVertexName = -1;
+	public void setRowToZero(int rowIndex) {
+		for (int colIndex = 0; colIndex < matrix[rowIndex].length; colIndex++) {
+			matrix[rowIndex][colIndex] = 0;
+		}
+	}
+
+	private int indexOfVertex(String vertexName) {
+		int indexOfVertex = -1;
 		for (int i = 0; i < vertexNames.size(); i++) {
 			if (vertexNames.get(i) != null && vertexNames.get(i).equals(vertexName)) {
-				indexOfVertexName = i;
+				indexOfVertex = i;
 				break;
 			}
 		}
-		return indexOfVertexName;
+		return indexOfVertex;
 	}
 
 	public void clear() {
-		if (matrix != null)
-			matrix.clear();
 		matrix = null;
+
+		if (vertexNames != null)
+			vertexNames.clear();
+		vertexNames = null;
 	}
 }
