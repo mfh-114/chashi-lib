@@ -7,7 +7,7 @@
 		<!-- release coordinates -->
 		<release.major>0</release.major>
 		<release.minor>0</release.minor>
-		<release.revision>1</release.revision>
+		<release.revision>16</release.revision>
 		<release.cycle>SNAPSHOT</release.cycle>
 
 		<!-- build timestamp -->
@@ -23,7 +23,7 @@
 	<groupId>org.mfh114.chashi</groupId>
 	<artifactId>chashi-lib</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.16-SNAPSHOT</version>
 	<name>chashi-lib</name>
 	<url>https://github.com/mfh-114/chashi-lib</url>
 	<dependencies>
