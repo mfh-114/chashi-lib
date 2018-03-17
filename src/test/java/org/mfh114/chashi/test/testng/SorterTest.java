@@ -3,12 +3,15 @@ package org.mfh114.chashi.test.testng;
 import java.util.Arrays;
 import java.util.List;
 
+import org.mfh114.chashi.ChashiException;
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Sorter;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexConnection;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -17,7 +20,7 @@ public class SorterTest {
 	private GraphFactory graphFactory;
 	private Vertex v1, v2, v3, v4, v5, v6;
 
-	@BeforeTest
+	@BeforeMethod
 	public void contruct() {
 
 		System.out.println("Created 6 vertexes graph ...");
@@ -31,7 +34,7 @@ public class SorterTest {
 		v6 = graphFactory.createVertex("v6");
 	}
 
-	@AfterTest
+	@AfterMethod
 	public void destroy() {
 		graphFactory = null;
 	}
@@ -80,4 +83,43 @@ public class SorterTest {
 			Assert.assertEquals(sortedVertex.get(i).getVertexName(), expectedSortedVertexNames.get(i));
 	}
 
+	/***
+	 * We are looking for the following matrix
+	 * 
+	 * <pre>
+	 *  ================
+	 *      v1 | v2 | v3
+	 *  ----------------
+	 *  v1| 0  |  1 |  1
+	 *  ----------------
+	 *  v2| 0  |  0 |  1
+	 *  ----------------
+	 *  v3| 1  |  0 |  0
+	 *  ----------------
+	 *  ================
+	 *     
+	 *    /->v2
+	 *  v1<.  |
+	 *   \  \ v         
+	 *    \->v3
+	 * </pre>
+	 */
+	@Test(expectedExceptions = ChashiException.class)
+	public void verifyGraphInLoopException() {
+		System.out.println("Verify graph is in loop exception ...");
+
+		System.out.println("Verify topological sort...");
+		VertexConnection vConn = graphFactory.createVertexConnection();
+		vConn.from(v1).to(v2, v3).connect();
+		vConn.from(v2).to(v3).connect();
+		vConn.from(v3).to(v1).connect();
+
+		Sorter sorter = graphFactory.createTopologicalSorter();
+		try {
+			sorter.sort();
+		} catch (ChashiException e) {
+			Assert.assertEquals(e.getMessage(), "Cannot procced. Graph is in loop.");
+			throw e;
+		}
+	}
 }
