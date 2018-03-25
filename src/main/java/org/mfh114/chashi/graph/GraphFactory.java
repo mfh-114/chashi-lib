@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.mfh114.chashi.graph.eventEmiter.Emitter;
+import org.mfh114.chashi.graph.eventEmiter.EventEmitter;
 import org.mfh114.chashi.validator.ValidatorException;
 import org.mfh114.chashi.validator.VertexImplValidator;
 
@@ -13,7 +15,8 @@ public class GraphFactory {
 	private VertexImplValidator vertexImplValidator;
 	private VertexConnectionImpl vertexConnectionImpl;
 	private VertexMatrix matrix;
-	private Sorter sorter;
+	private TopologicalSorter topoSorter;
+	private Emitter emitter;
 
 	/***
 	 * Create default GraphFactory instance
@@ -90,7 +93,16 @@ public class GraphFactory {
 	}
 
 	public Sorter createTopologicalSorter() {
-		this.sorter = new TopologicalSorter(vertexList, matrix);
-		return sorter;
+		this.topoSorter = new TopologicalSorter(vertexList, matrix);
+		return topoSorter;
+	}
+
+	public Emitter createEventEmitter() {
+
+		if (topoSorter == null)
+			throw new IllegalAccessError("Cannot be called without calling Sorter");
+
+		this.emitter = new EventEmitter(vertexList, this.topoSorter.getSortedVertexGroupIndexes());
+		return emitter;
 	}
 }

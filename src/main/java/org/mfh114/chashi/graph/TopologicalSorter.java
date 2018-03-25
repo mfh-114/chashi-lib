@@ -53,8 +53,7 @@ class TopologicalSorter implements Sorter {
 						rowIndex++;
 					}
 					// if sum is greater than 0 then one or multiple rows
-					// contain 1
-					// of the specific column index
+					// contain 1 of the specific column index
 					if (sum == 0)
 						zeroValueCols.add(colIndex);
 				}
@@ -68,8 +67,7 @@ class TopologicalSorter implements Sorter {
 				sortedVertexIndexList.addAll(zeroValueCols);
 
 				// set entire row to 0. So 0 column index will be used to get
-				// target
-				// row which all cells will be zero.
+				// target row which all cells will be zero.
 				for (int i = 0; i < zeroValueCols.size(); i++)
 					matrix.setRowToZero(zeroValueCols.get(i));
 			} else {
@@ -85,9 +83,9 @@ class TopologicalSorter implements Sorter {
 		System.out.println(sortedVertexIndexList.toString());
 		System.out.println(sortedVertexGroupIndex.toString());
 
-		// --------------------------------------------------
-		// TODO: use future to create worker thread to handle event.
-		// ------------------------------------------------
+		if (triggerEvent) {
+
+		}
 
 		return getSortedVertexList(sortedVertexIndexList);
 	}
@@ -103,5 +101,9 @@ class TopologicalSorter implements Sorter {
 		}
 
 		return sortedVertexList;
+	}
+	
+	public List<List<Integer>> getSortedVertexGroupIndexes(){
+		return sortedVertexGroupIndex;
 	}
 }

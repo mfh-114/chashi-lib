@@ -1,27 +1,19 @@
 package org.mfh114.chashi.graph;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.mfh114.chashi.graph.eventEmiter.VertexCallback;
 
 class VertexImpl implements Vertex {
 
 	private String name;
 	private String valueStr;
 	private boolean isVisted;
-	private List<VertexCallback<?>> vertextCallbackList;
-
-	public VertexImpl(String name) {
-		this.name = name;
-		this.valueStr = null;
-		this.isVisted = false;
-		this.vertextCallbackList = new ArrayList<>();
-	}
+	private VertexCallback vertexCallback;
 
 	public VertexImpl(String name, String valueStr) {
 		this.name = name;
 		this.valueStr = valueStr;
 		this.isVisted = false;
-		this.vertextCallbackList = new ArrayList<>();
+		this.vertexCallback = null;
 	}
 
 	@Override
@@ -45,23 +37,22 @@ class VertexImpl implements Vertex {
 	}
 
 	@Override
-	public <T> void registerCallBack(VertexCallback<T> vertexCallback) {
-		vertextCallbackList.add(vertexCallback);
+	public void registerCallBack(VertexCallback vertexCallback) {
+		this.vertexCallback = vertexCallback;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public VertexCallback<?> getRegisteredCallback() {
-		if (vertextCallbackList == null || vertextCallbackList.isEmpty())
+	public VertexCallback getRegisteredCallback() {
+		if (vertexCallback == null)
 			throw new IllegalStateException("No callback is registered.");
 
-		return vertextCallbackList.get(0);
+		return vertexCallback;
 	}
 
 	@Override
 	public String toString() {
-		return "VertexImpl [name=" + name + ", valueStr=" + valueStr + ", isVisted=" + isVisted
-				+ ", vertextCallbackList=" + vertextCallbackList + "]";
+		return "VertexImpl [name=" + name + ", valueStr=" + valueStr + ", isVisted=" + isVisted + ", vertexCallback="
+				+ vertexCallback + "]";
 	}
 
 	@Override
@@ -71,7 +62,7 @@ class VertexImpl implements Vertex {
 		result = prime * result + (isVisted ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((valueStr == null) ? 0 : valueStr.hashCode());
-		result = prime * result + ((vertextCallbackList == null) ? 0 : vertextCallbackList.hashCode());
+		result = prime * result + ((vertexCallback == null) ? 0 : vertexCallback.hashCode());
 		return result;
 	}
 
@@ -96,10 +87,10 @@ class VertexImpl implements Vertex {
 				return false;
 		} else if (!valueStr.equals(other.valueStr))
 			return false;
-		if (vertextCallbackList == null) {
-			if (other.vertextCallbackList != null)
+		if (vertexCallback == null) {
+			if (other.vertexCallback != null)
 				return false;
-		} else if (!vertextCallbackList.equals(other.vertextCallbackList))
+		} else if (!vertexCallback.equals(other.vertexCallback))
 			return false;
 		return true;
 	}

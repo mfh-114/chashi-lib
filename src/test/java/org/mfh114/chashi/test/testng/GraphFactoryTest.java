@@ -1,8 +1,9 @@
 package org.mfh114.chashi.test.testng;
 
+import org.mfh114.chashi.ChashiException;
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
-import org.mfh114.chashi.graph.VertexCallback;
+import org.mfh114.chashi.graph.eventEmiter.VertexCallback;
 import org.mfh114.chashi.validator.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -52,17 +53,12 @@ public class GraphFactoryTest {
 
 		Vertex v1 = graphFactory.createVertex("v1");
 
-		VertexCallback<String> vc1 = new VertexCallback<String>() {
+		VertexCallBackImpl vcImpl = new VertexCallBackImpl();
+		v1.registerCallBack(vcImpl);
 
-			public String call() throws Exception {
-				return "I am CallBack1";
+		v1.getRegisteredCallback().call();
 
-			}
-		};
-
-		v1.registerCallBack(vc1);
-
-		Assert.assertEquals(v1.getRegisteredCallback().call(), "I am CallBack1");
+		Assert.assertEquals(vcImpl.getResult(), "I am CallBack");
 	}
 
 	@Test
@@ -87,4 +83,18 @@ public class GraphFactoryTest {
 		Assert.assertEquals(graphFactory.getVertexList().size(), 2);
 	}
 
+	// inner class to stub the VertexCallBack implementation
+	class VertexCallBackImpl implements VertexCallback {
+
+		String r = "";
+
+		@Override
+		public void call() throws ChashiException {
+			r = "I am CallBack";
+		}
+
+		public String getResult() {
+			return r;
+		}
+	}
 }
