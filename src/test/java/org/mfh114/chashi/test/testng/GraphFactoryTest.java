@@ -1,10 +1,10 @@
 package org.mfh114.chashi.test.testng;
 
-import org.mfh114.chashi.ChashiException;
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.eventEmiter.VertexCallback;
-import org.mfh114.chashi.validator.ValidatorException;
+import org.mfh114.chashi.graph.exception.ChashiException;
+import org.mfh114.chashi.validator.exception.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -27,7 +27,7 @@ public class GraphFactoryTest {
 	}
 
 	@Test
-	public void verifyVertexInstance() {
+	public void verifyVertexInstance() throws ValidatorException {
 
 		System.out.println("Verify vertex is created ...");
 
@@ -62,7 +62,7 @@ public class GraphFactoryTest {
 	}
 
 	@Test
-	public void verifyVertexList() {
+	public void verifyVertexList() throws ValidatorException {
 
 		System.out.println("Verify vertexes are connected ...");
 
@@ -73,7 +73,7 @@ public class GraphFactoryTest {
 	}
 
 	@Test(expectedExceptions = ValidatorException.class)
-	public void verifyVertexNotUniqueName() {
+	public void verifyVertexNotUniqueName() throws ValidatorException {
 
 		System.out.println("Verify vertex is not unique name. Expected ValidatorException expection ...");
 

@@ -3,9 +3,6 @@ package org.mfh114.chashi.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mfh114.chashi.ChashiException;
-import org.mfh114.chashi.ErrorCode;
-
 class VertexMatrix {
 
 	private int[][] matrix = null;
@@ -19,7 +16,7 @@ class VertexMatrix {
 	public void init() {
 
 		if (this.vertexNames == null || this.vertexNames.isEmpty())
-			throw new ChashiException(ErrorCode.INTERNAL_ERROR, "Vertex names list is not set.");
+			throw new IllegalArgumentException("Vertex names list is not set.");
 
 		this.size = vertexNames.size();
 

@@ -3,11 +3,12 @@ package org.mfh114.chashi.test.testng;
 import java.util.Arrays;
 import java.util.List;
 
-import org.mfh114.chashi.ChashiException;
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Sorter;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexConnection;
+import org.mfh114.chashi.graph.exception.ChashiException;
+import org.mfh114.chashi.validator.exception.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -19,7 +20,7 @@ public class SorterTest {
 	private Vertex v1, v2, v3, v4, v5, v6;
 
 	@BeforeMethod
-	public void contruct() {
+	public void contruct() throws ValidatorException {
 
 		System.out.println("Created 6 vertexes graph ...");
 
@@ -63,9 +64,10 @@ public class SorterTest {
 	 *    \->v3 -> v5
 	 *     \-> v6
 	 * </pre>
+	 * @throws ChashiException 
 	 */
 	@Test
-	public void verifySort() {
+	public void verifySort() throws ChashiException {
 		System.out.println("Verify topological sort...");
 		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(v1).to(v2, v3, v6).connect();
@@ -107,9 +109,10 @@ public class SorterTest {
 	 *    \->v3 -> v5
 	 *     \-> v6
 	 * </pre>
+	 * @throws ChashiException 
 	 */
 	@Test
-	public void verifySortWithEvent() {
+	public void verifySortWithEvent() throws ChashiException {
 		System.out.println("Verify topological sort with event ...");
 		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(v1).to(v2, v3, v6).connect();
@@ -145,9 +148,10 @@ public class SorterTest {
 	 *   \  \ v         
 	 *    \->v3
 	 * </pre>
+	 * @throws ChashiException 
 	 */
 	@Test(expectedExceptions = ChashiException.class)
-	public void verifyGraphInLoopException() {
+	public void verifyGraphInLoopException() throws ChashiException {
 		System.out.println("Verify graph is in loop exception ...");
 
 		System.out.println("Verify topological sort...");

@@ -3,6 +3,8 @@ package org.mfh114.chashi.graph;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mfh114.chashi.graph.exception.InvalidVertexNameException;
+
 class VertexConnectionImpl implements VertexConnection {
 
 	// key = vertex name, value = list of vertexes

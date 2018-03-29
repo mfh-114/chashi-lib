@@ -3,8 +3,8 @@ package org.mfh114.chashi.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mfh114.chashi.ChashiException;
-import org.mfh114.chashi.ErrorCode;
+import org.mfh114.chashi.graph.exception.ChashiException;
+import org.mfh114.chashi.graph.exception.GraphInLoopException;
 
 class TopologicalSorter implements Sorter {
 
@@ -74,7 +74,7 @@ class TopologicalSorter implements Sorter {
 				// at least one entire column must be 0 otherwise graph is in
 				// loop
 				matrix.clear();
-				throw new ChashiException(ErrorCode.DUP_VERTEX_NAME, "Cannot procced. Graph is in loop.");
+				throw new GraphInLoopException("Cannot procced. Graph is in loop.");
 			}
 		}
 
@@ -82,10 +82,6 @@ class TopologicalSorter implements Sorter {
 
 		System.out.println(sortedVertexIndexList.toString());
 		System.out.println(sortedVertexGroupIndex.toString());
-
-		if (triggerEvent) {
-
-		}
 
 		return getSortedVertexList(sortedVertexIndexList);
 	}
@@ -102,8 +98,8 @@ class TopologicalSorter implements Sorter {
 
 		return sortedVertexList;
 	}
-	
-	public List<List<Integer>> getSortedVertexGroupIndexes(){
+
+	public List<List<Integer>> getSortedVertexGroupIndexes() {
 		return sortedVertexGroupIndex;
 	}
 }

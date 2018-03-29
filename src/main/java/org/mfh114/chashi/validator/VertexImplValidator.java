@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.mfh114.chashi.ErrorCode;
 import org.mfh114.chashi.graph.Vertex;
+import org.mfh114.chashi.validator.exception.DuplicateVertexNameException;
+import org.mfh114.chashi.validator.exception.RequiredParameterException;
+import org.mfh114.chashi.validator.exception.ValidatorException;
 
 public class VertexImplValidator implements Validator<Vertex> {
 
@@ -31,14 +33,14 @@ public class VertexImplValidator implements Validator<Vertex> {
 	public void validate(Vertex vertex) throws ValidatorException {
 
 		if (StringUtils.isBlank(vertex.getVertexName()))
-			throw new ValidatorException(ErrorCode.REQUIRED_PARAM, "Vertex name is required");
+			throw new RequiredParameterException("Vertex name is required");
 
 		// At this stage vertex has the name. Therefore, check the name against
 		// latest vertex list to make sure there
 		// is not duplicate name.
 		for (Vertex v : vertexList) {
 			if (v.getVertexName().equals(vertex.getVertexName()))
-				throw new ValidatorException(ErrorCode.DUP_VERTEX_NAME, "Vertex is already create with this name: "
+				throw new DuplicateVertexNameException("Vertex is already create with this name: "
 						+ vertex.getVertexName() + ". Please use unique vertex name.");
 		}
 	}

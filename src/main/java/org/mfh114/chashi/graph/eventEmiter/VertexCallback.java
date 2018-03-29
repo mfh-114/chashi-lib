@@ -1,6 +1,6 @@
 package org.mfh114.chashi.graph.eventEmiter;
 
-import org.mfh114.chashi.ChashiException;
+import org.mfh114.chashi.graph.exception.ChashiException;
 
 public interface VertexCallback {
 

@@ -14,7 +14,11 @@ public class Task implements Runnable {
 
 	@Override
 	public void run() {
-		this.vertexCallback.call();
+		try {
+			this.vertexCallback.call();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
 		this.latch.countDown();
 	}

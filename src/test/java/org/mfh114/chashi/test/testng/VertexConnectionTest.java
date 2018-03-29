@@ -5,6 +5,8 @@ import java.util.List;
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexConnection;
+import org.mfh114.chashi.graph.exception.InvalidVertexNameException;
+import org.mfh114.chashi.validator.exception.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -16,7 +18,7 @@ public class VertexConnectionTest {
 	private Vertex v1, v2, v3, v4, v5;
 
 	@BeforeTest
-	public void contruct() {
+	public void contruct() throws ValidatorException {
 
 		System.out.println("Created 5 vertexes graph ...");
 
@@ -58,10 +60,11 @@ public class VertexConnectionTest {
 	 *    \->v3 -> v5
 	 * 
 	 * </pre>
+	 * @throws InvalidVertexNameException 
 	 */
 
 	@Test
-	public void verifyConnectionFromV1ToV2_V3() {
+	public void verifyConnectionFromV1ToV2_V3() throws InvalidVertexNameException {
 		System.out.println("Verify vertex connection from v1 to v2 and v3...");
 
 		VertexConnection vConn = graphFactory.createVertexConnection();
@@ -73,7 +76,7 @@ public class VertexConnectionTest {
 	}
 
 	@Test
-	public void verifyConnectionFromV2ToV3_V4() {
+	public void verifyConnectionFromV2ToV3_V4() throws InvalidVertexNameException {
 		System.out.println("Verify vertex connection v2 to v3 and v4...");
 
 		VertexConnection vConn = graphFactory.createVertexConnection();
@@ -85,7 +88,7 @@ public class VertexConnectionTest {
 	}
 
 	@Test
-	public void verifyConnectionFromv3Tov5() {
+	public void verifyConnectionFromv3Tov5() throws InvalidVertexNameException {
 		System.out.println("Verify vertex connection v3 to v5...");
 
 		VertexConnection vConn = graphFactory.createVertexConnection();
