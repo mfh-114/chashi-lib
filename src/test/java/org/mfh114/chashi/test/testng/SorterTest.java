@@ -4,11 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.mfh114.chashi.graph.GraphFactory;
-import org.mfh114.chashi.graph.Sorter;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexConnection;
 import org.mfh114.chashi.graph.exception.ChashiException;
-import org.mfh114.chashi.validator.exception.ValidatorException;
+import org.mfh114.chashi.graph.exception.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -20,7 +19,7 @@ public class SorterTest {
 	private Vertex v1, v2, v3, v4, v5, v6;
 
 	@BeforeMethod
-	public void contruct() throws ValidatorException {
+	public void construct() throws ValidatorException {
 
 		System.out.println("Created 6 vertexes graph ...");
 
@@ -64,7 +63,8 @@ public class SorterTest {
 	 *    \->v3 -> v5
 	 *     \-> v6
 	 * </pre>
-	 * @throws ChashiException 
+	 * 
+	 * @throws ChashiException
 	 */
 	@Test
 	public void verifySort() throws ChashiException {
@@ -74,8 +74,7 @@ public class SorterTest {
 		vConn.from(v2).to(v3, v4).connect();
 		vConn.from(v3).to(v5).connect();
 
-		Sorter sorter = graphFactory.createTopologicalSorter();
-		List<Vertex> sortedVertex = sorter.sort();
+		List<Vertex> sortedVertex = graphFactory.sort();
 
 		List<String> expectedSortedVertexNames = Arrays.asList("v1", "v2", "v6", "v3", "v4", "v5");
 
@@ -109,7 +108,8 @@ public class SorterTest {
 	 *    \->v3 -> v5
 	 *     \-> v6
 	 * </pre>
-	 * @throws ChashiException 
+	 * 
+	 * @throws ChashiException
 	 */
 	@Test
 	public void verifySortWithEvent() throws ChashiException {
@@ -119,15 +119,14 @@ public class SorterTest {
 		vConn.from(v2).to(v3, v4).connect();
 		vConn.from(v3).to(v5).connect();
 
-		Sorter sorter = graphFactory.createTopologicalSorter();
-		List<Vertex> sortedVertex = sorter.sort(true);
+		List<Vertex> sortedVertex = graphFactory.sort();
 
 		List<String> expectedSortedVertexNames = Arrays.asList("v1", "v2", "v6", "v3", "v4", "v5");
 
 		for (int i = 0; i < sortedVertex.size(); i++)
 			Assert.assertEquals(sortedVertex.get(i).getVertexName(), expectedSortedVertexNames.get(i));
-	}	
-	
+	}
+
 	/***
 	 * We are looking for the following matrix
 	 * 
@@ -148,7 +147,8 @@ public class SorterTest {
 	 *   \  \ v         
 	 *    \->v3
 	 * </pre>
-	 * @throws ChashiException 
+	 * 
+	 * @throws ChashiException
 	 */
 	@Test(expectedExceptions = ChashiException.class)
 	public void verifyGraphInLoopException() throws ChashiException {
@@ -160,9 +160,8 @@ public class SorterTest {
 		vConn.from(v2).to(v3).connect();
 		vConn.from(v3).to(v1).connect();
 
-		Sorter sorter = graphFactory.createTopologicalSorter();
 		try {
-			sorter.sort();
+			graphFactory.sort();
 		} catch (ChashiException e) {
 			Assert.assertEquals(e.getMessage(), "Cannot procced. Graph is in loop.");
 			throw e;

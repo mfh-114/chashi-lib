@@ -1,4 +1,4 @@
-package org.mfh114.chashi.validator.exception;
+package org.mfh114.chashi.graph.exception;
 
 public class DuplicateVertexNameException extends ValidatorException {
 

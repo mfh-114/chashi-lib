@@ -1,13 +1,13 @@
-package org.mfh114.chashi.validator;
+package org.mfh114.chashi.graph.validator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.mfh114.chashi.graph.Vertex;
-import org.mfh114.chashi.validator.exception.DuplicateVertexNameException;
-import org.mfh114.chashi.validator.exception.RequiredParameterException;
-import org.mfh114.chashi.validator.exception.ValidatorException;
+import org.mfh114.chashi.graph.exception.DuplicateVertexNameException;
+import org.mfh114.chashi.graph.exception.RequiredParameterException;
+import org.mfh114.chashi.graph.exception.ValidatorException;
 
 public class VertexImplValidator implements Validator<Vertex> {
 

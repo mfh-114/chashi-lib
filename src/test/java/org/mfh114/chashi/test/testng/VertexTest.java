@@ -2,7 +2,7 @@ package org.mfh114.chashi.test.testng;
 
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
-import org.mfh114.chashi.validator.exception.ValidatorException;
+import org.mfh114.chashi.graph.exception.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

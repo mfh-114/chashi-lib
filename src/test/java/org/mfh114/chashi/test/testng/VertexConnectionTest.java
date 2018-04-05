@@ -6,7 +6,7 @@ import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.VertexConnection;
 import org.mfh114.chashi.graph.exception.InvalidVertexNameException;
-import org.mfh114.chashi.validator.exception.ValidatorException;
+import org.mfh114.chashi.graph.exception.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
