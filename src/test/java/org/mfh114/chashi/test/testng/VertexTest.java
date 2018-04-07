@@ -2,6 +2,8 @@ package org.mfh114.chashi.test.testng;
 
 import org.mfh114.chashi.graph.GraphFactory;
 import org.mfh114.chashi.graph.Vertex;
+import org.mfh114.chashi.graph.eventEmiter.VertexCallback;
+import org.mfh114.chashi.graph.exception.ChashiException;
 import org.mfh114.chashi.graph.exception.ValidatorException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -26,12 +28,75 @@ public class VertexTest {
 		Assert.assertEquals(v1.getVertexName(), "v1");
 	}
 
-	@Test(expectedExceptions = ValidatorException.class)
-	public void verifyNoVertexName() throws ValidatorException {
+	@Test
+	public void verifyVertexValue() throws ValidatorException {
 
-		System.out.println("Verify no vertex name is set. Expected ValidatorException is thrown ...");
+		System.out.println("Verify vertex value ...");
 
-		graphFactory.createVertex(null);
+		Vertex v1 = graphFactory.createVertex("v1", "v1 value");
+
+		Assert.assertEquals(v1.getValueStr(), "v1 value");
+	}
+
+	@Test
+	public void verifyIsVertexAlreadyVisted() throws ValidatorException {
+
+		System.out.println("Verify vertex already visted ...");
+
+		Vertex v1 = graphFactory.createVertex("v1", "v1 value");
+		v1.setVisted(true);
+
+		Assert.assertEquals(v1.isVisted(), true);
+	}
+
+	@Test(expectedExceptions = IllegalStateException.class)
+	public void verifyVertexCallbackIsNotRegistered() throws IllegalStateException, Exception {
+
+		System.out.println("Verify vertex callback is not registered. Expected IllegalStateException ...");
+
+		Vertex v1 = graphFactory.createVertex("v1");
+
+		v1.getRegisteredCallback().call();
+	}
+
+	@Test
+	public void verifyVertexCallback() throws IllegalStateException, Exception {
+
+		System.out.println("Verify vertex callback is registered ...");
+
+		Vertex v1 = graphFactory.createVertex("v1");
+
+		VertexCallBackImpl vcImpl = new VertexCallBackImpl();
+		v1.registerCallBack(vcImpl);
+
+		v1.getRegisteredCallback().call();
+
+		Assert.assertEquals(vcImpl.getResult(), "I am CallBack");
+	}
+
+	@Test
+	public void verifyToString() throws ValidatorException {
+		System.out.println("Verify vertex toString ...");
+
+		Vertex v1 = graphFactory.createVertex("v1");
+
+		String expectedResult = "VertexImpl [name=v1, valueStr=null, isVisted=false, vertexCallback=null]";
+		Assert.assertEquals(v1.toString(), expectedResult);
+	}
+
+	// inner class to stub the VertexCallBack implementation
+	class VertexCallBackImpl implements VertexCallback {
+
+		String r = "";
+
+		@Override
+		public void call() throws ChashiException {
+			r = "I am CallBack";
+		}
+
+		public String getResult() {
+			return r;
+		}
 	}
 
 }

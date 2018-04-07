@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 import org.mfh114.chashi.graph.eventEmiter.EventEmitter;
 import org.mfh114.chashi.graph.exception.ChashiException;
 import org.mfh114.chashi.graph.exception.ValidatorException;
-import org.mfh114.chashi.graph.validator.VertexImplValidator;
+import org.mfh114.chashi.graph.validator.VertexValidator;
 
 public class GraphFactory {
 
 	private List<Vertex> vertexList;
-	private VertexImplValidator vertexImplValidator;
+	private VertexValidator vertexImplValidator;
 	private VertexConnectionImpl vertexConnectionImpl;
 	private VertexMatrix matrix;
 	private TopologicalSorter topoSorter;
@@ -22,7 +22,7 @@ public class GraphFactory {
 	 */
 	public GraphFactory() {
 		this.vertexList = new ArrayList<>();
-		this.vertexImplValidator = new VertexImplValidator();
+		this.vertexImplValidator = new VertexValidator();
 	}
 
 	/***
@@ -78,11 +78,8 @@ public class GraphFactory {
 	}
 
 	/***
-	 * Create and get vertex connection implementation based on the
-	 * representation type of the graph.
-	 * 
-	 * @param vertexList
-	 * @return {@link VertexConnection}
+	 * Create VertexConnection implementation to establish connection among
+	 * vertexes.
 	 */
 	public VertexConnection createVertexConnection() {
 		this.matrix = new VertexMatrix(vertexList.stream().map(v -> v.getVertexName()).collect(Collectors.toList()));
@@ -91,17 +88,34 @@ public class GraphFactory {
 		return vertexConnectionImpl;
 	}
 
+	/***
+	 * Sort the vertexes. It will perform matrix based topological sort.
+	 * 
+	 * @return
+	 * @throws ChashiException
+	 */
 	public List<Vertex> sort() throws ChashiException {
 		this.topoSorter = new TopologicalSorter(vertexList, matrix);
 		return this.topoSorter.sort();
 	}
 
-	public void emitEvent() throws Exception {
+	/***
+	 * Emit registered event of the vertex asynchronously. This method should
+	 * not be called unless <em>sort</em> is called.
+	 * 
+	 * @throws Exception
+	 */
+	public void emitEvent() throws ChashiException {
 
 		if (topoSorter == null)
 			throw new IllegalAccessError("sort method is not called.");
 
 		EventEmitter emitter = new EventEmitter(vertexList, this.topoSorter.getSortedVertexGroupIndexes());
-		emitter.emit();
+
+		try {
+			emitter.emit();
+		} catch (Exception e) {
+			throw new ChashiException(e);
+		}
 	}
 }

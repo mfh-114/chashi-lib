@@ -6,14 +6,14 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.mfh114.chashi.graph.Vertex;
 import org.mfh114.chashi.graph.exception.DuplicateVertexNameException;
-import org.mfh114.chashi.graph.exception.RequiredParameterException;
+import org.mfh114.chashi.graph.exception.ParameterRequiredException;
 import org.mfh114.chashi.graph.exception.ValidatorException;
 
-public class VertexImplValidator implements Validator<Vertex> {
+public class VertexValidator implements Validator<Vertex> {
 
 	private List<Vertex> vertexList = null;
 
-	public VertexImplValidator() {
+	public VertexValidator() {
 		this.vertexList = new ArrayList<>();
 	}
 
@@ -33,7 +33,7 @@ public class VertexImplValidator implements Validator<Vertex> {
 	public void validate(Vertex vertex) throws ValidatorException {
 
 		if (StringUtils.isBlank(vertex.getVertexName()))
-			throw new RequiredParameterException("Vertex name is required");
+			throw new ParameterRequiredException("Vertex name is required.");
 
 		// At this stage vertex has the name. Therefore, check the name against
 		// latest vertex list to make sure there
