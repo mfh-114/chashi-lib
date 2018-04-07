@@ -84,6 +84,30 @@ public class VertexTest {
 		Assert.assertEquals(v1.toString(), expectedResult);
 	}
 
+	@Test
+	public void verifyHashCode() throws ValidatorException {
+		System.out.println("Verify vertex hashcode ...");
+
+		Vertex v1 = graphFactory.createVertex("v1");
+
+		Assert.assertNotNull(v1.hashCode());
+	}
+
+	@Test
+	public void verifyEquals() throws ValidatorException {
+		System.out.println("Verify vertex equality ...");
+
+		Vertex v1 = graphFactory.createVertex("v1");
+		Vertex v2 = graphFactory.createVertex("v2", "This value 2");
+		Vertex v3 = graphFactory.createVertex("v3", "This value 3");
+		VertexCallBackImpl vcImpl = new VertexCallBackImpl();
+		v3.registerCallBack(vcImpl);
+
+		Assert.assertEquals(v1.equals(v2), false);
+		Assert.assertEquals(v1.equals(v3), false);
+		Assert.assertEquals(v2.equals(v3), false);
+	}
+
 	// inner class to stub the VertexCallBack implementation
 	class VertexCallBackImpl implements VertexCallback {
 
