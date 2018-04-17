@@ -6,8 +6,8 @@
 
 		<!-- release coordinates -->
 		<release.major>0</release.major>
-		<release.minor>0</release.minor>
-		<release.revision>16</release.revision>
+		<release.minor>1</release.minor>
+		<release.revision>1</release.revision>
 		<release.cycle>SNAPSHOT</release.cycle>
 
 		<!-- build timestamp -->
@@ -23,7 +23,7 @@
 	<groupId>org.mfh114.chashi</groupId>
 	<artifactId>chashi-lib</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.16-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>chashi-lib</name>
 	<url>https://github.com/mfh-114/chashi-lib</url>
 	<dependencies>
@@ -122,6 +122,49 @@
 						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Source plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>${project.artifactId}-${project.version}-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- JavaDoc plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>${project.artifactId}-${project.version}-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Test jar plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>${project.artifactId}-${project.version}-tests</id>
+						<goals>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
