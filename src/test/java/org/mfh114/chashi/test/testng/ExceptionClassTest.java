@@ -17,9 +17,15 @@ public class ExceptionClassTest {
 
 	@Test(expectedExceptions = ChashiException.class)
 	public void verifyChashiExceptionWithThrowable() throws ChashiException {
+		throw new ChashiException(new Throwable());
+	}	
+	
+	@Test(expectedExceptions = ChashiException.class)
+	public void verifyChashiExceptionWithMsgAndThrowable() throws ChashiException {
 		throw new ChashiException(ChashiException.class.getName(), new Throwable());
-	}
+	}	
 
+	
 	@Test(expectedExceptions = DuplicateVertexNameException.class)
 	public void duplicateVertexNameException() throws DuplicateVertexNameException {
 		throw new DuplicateVertexNameException(DuplicateVertexNameException.class.getName());
@@ -27,6 +33,11 @@ public class ExceptionClassTest {
 
 	@Test(expectedExceptions = DuplicateVertexNameException.class)
 	public void verifyDuplicateVertexNameExceptionWithThrowable() throws DuplicateVertexNameException {
+		throw new DuplicateVertexNameException(new Throwable());
+	}	
+	
+	@Test(expectedExceptions = DuplicateVertexNameException.class)
+	public void verifyDuplicateVertexNameExceptionWithMsgAndThrowable() throws DuplicateVertexNameException {
 		throw new DuplicateVertexNameException(DuplicateVertexNameException.class.getName(), new Throwable());
 	}
 
@@ -37,6 +48,11 @@ public class ExceptionClassTest {
 
 	@Test(expectedExceptions = GraphInLoopException.class)
 	public void verifyGraphInLoopExceptionWithThrowable() throws GraphInLoopException {
+		throw new GraphInLoopException(new Throwable());
+	}	
+	
+	@Test(expectedExceptions = GraphInLoopException.class)
+	public void verifyGraphInLoopExceptionWithMsgAndThrowable() throws GraphInLoopException {
 		throw new GraphInLoopException(GraphInLoopException.class.getName(), new Throwable());
 	}
 
@@ -47,6 +63,11 @@ public class ExceptionClassTest {
 
 	@Test(expectedExceptions = InvalidVertexNameException.class)
 	public void verifyInvalidVertexNameExceptionWithThrowable() throws InvalidVertexNameException {
+		throw new InvalidVertexNameException(new Throwable());
+	}	
+	
+	@Test(expectedExceptions = InvalidVertexNameException.class)
+	public void verifyInvalidVertexNameExceptionWithMsgAndThrowable() throws InvalidVertexNameException {
 		throw new InvalidVertexNameException(InvalidVertexNameException.class.getName(), new Throwable());
 	}
 
@@ -57,6 +78,11 @@ public class ExceptionClassTest {
 
 	@Test(expectedExceptions = ParameterRequiredException.class)
 	public void verifyParameterRequiredExceptionWithThrowable() throws ParameterRequiredException {
+		throw new ParameterRequiredException(new Throwable());
+	}	
+	
+	@Test(expectedExceptions = ParameterRequiredException.class)
+	public void verifyParameterRequiredExceptionWithMsgAndThrowable() throws ParameterRequiredException {
 		throw new ParameterRequiredException(ParameterRequiredException.class.getName(), new Throwable());
 	}
 
@@ -67,6 +93,11 @@ public class ExceptionClassTest {
 
 	@Test(expectedExceptions = ValidatorException.class)
 	public void verifyValidatorExceptionWithThrowable() throws ValidatorException {
+		throw new ValidatorException(new Throwable());
+	}	
+	
+	@Test(expectedExceptions = ValidatorException.class)
+	public void verifyValidatorExceptionWithMsgAndThrowable() throws ValidatorException {
 		throw new ValidatorException(ValidatorException.class.getName(), new Throwable());
 	}
 }
