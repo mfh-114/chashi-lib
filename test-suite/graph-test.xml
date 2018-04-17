@@ -9,6 +9,8 @@
 			<class name="org.mfh114.chashi.test.testng.VertexConnectionTest" />
 			<class name="org.mfh114.chashi.test.testng.SorterTest" />
 			<class name="org.mfh114.chashi.test.testng.EventEmitterTest" />
+			<class name="org.mfh114.chashi.test.testng.ExceptionClassTest" />
+							
 		</classes>
 	</test>
 	
