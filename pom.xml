@@ -142,6 +142,9 @@
 			</plugin>
 
 			<!-- JavaDoc plugin -->
+			<!-- COmmentted out java doc plugin. Therefore,
+			     There is some java comment problem.
+			     TODO: Fix java doc comments 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -154,6 +157,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 </project>
