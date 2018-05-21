@@ -11,7 +11,7 @@ In short sentence, this library returns sorted vertexes of a graph. Event of the
 ###How to use:  
 Here is the user story. Bob recently passed the high school now he has been admitted at college XYZ in Computer Science department. The college has only 12 courses to complete the degree program from college XYZ. 
 
-[course_example_graph.png|course graph]
+[course graph](course_example_graph.png)
 
 
  
