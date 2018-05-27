@@ -9,10 +9,43 @@ This library is engaged to produce food (refined data) for the dedicated busines
 In short sentence, this library returns sorted vertexes of a graph. Event of the vertex will be triggered asynchronously, if event is registered.  
 
 ###How to use:  
-Here is the user story. Bob recently passed the high school now he has been admitted at college XYZ in Computer Science department. The college has only 12 courses to complete the degree program from college XYZ. 
+Here is the user story. Bob recently passed the high school and now has been admitted at college XYZ in Computer Science department. He needs only 12 courses to complete the degree program from college XYZ. 
 
 ![course graph](course_example_graph.png)
 
+------------------------------
+|Courses Name | Vertex Name  |
+|------------ |:------------:|
+|             |    C1        |
+|-------------|--------------|
+|             |    C2        |
+|-------------|--------------|
+|             |    C3        |
+|-------------|--------------|
+|             |    C4        |
+|-------------|--------------|
+|             |    C5        |
+|-------------|--------------|
+|             |    C6        |
+|-------------|--------------|
+|             |    C7        |
+|-------------|--------------|
+|             |    C8        |
+|-------------|--------------|
+|             |    M1        |
+|-------------|--------------|
+|             |    M2        |
+|---------- --|--------------|
+|             |    M3        |
+|-------------|--------------|
+|             |    M4        |
+|-------------|--------------|
+|             |    R         |
+------------------------------
 
- 
+He wants to know which courses need to be completed first to complete his graduation. So, we can help him to get 
+sorted order of the courses and fetch the sylabus of the courses asynchronously.
+
+Therefore, each course is considered as vertex and edge provides the dependency connection among courses. No more talk we will jump to the code now:
+
 
