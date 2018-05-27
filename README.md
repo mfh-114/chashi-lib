@@ -4,18 +4,18 @@
 
 It is a topological sort library with optional event handler functionality. In Bengali, chashsi means farmer. According to the wikipedia, "A farmer is a person engaged in agriculture, raising living organism for food and raw material."   
 
-This library is engaged to produce food (refined data) for the dedicated business environment. For example, a new college student may have multiple courses per semester. The student need to know which course needs pre-required courses to meet the requirement of degree. Therefore, a student needs to know the sorted order of courses. In this case, the student will produce a course graph and each course is a vertex and feed the graph data into this library. The library will return the sorted order of the courses. Now, the student can add event for each course, optionally. Like, when course A is sorted, trigger to fetch the syllabus of the course. In the complex scenario, course A and B are sorted but course C depends on course A and B. Therefore, course C's event (if event is registered) will be waiting until course A and B events' are completed.  
+This library is engaged to produce food (refined data) for the dedicated business environment. For example, a new college student may have multiple courses per semester. The student may need to know which course needs pre-required courses to meet the requirement of degree. In this case, the student will produce a course graph and each course is a vertex and feed the graph data into this library. The library will return the sorted order of the courses. Now, the student can add event for each course, optionally. Like, when course A is sorted, trigger to fetch the syllabus of the course. In the complex scenario, course A and B are sorted but course C depends on course A and B. Therefore, course C's event (if event is registered) will be waiting until course A and B events' are completed.  
 
 In short sentence, this library returns sorted vertexes of a graph. Event of the vertex will be triggered asynchronously, if event is registered.  
 
 ### How to use:  
 
-Here is the user story. Bob recently passed the high school and now has been admitted at college XYZ in Computer Science department. He needs only 12 courses to complete the degree program from college XYZ.   
+Here is the user story. Bob recently passed the high school and now is admitted at college XYZ in Computer Science department. He needs only 12 courses to complete the degree program from college XYZ.   
 
 |Course Names | Vertex Names | Prerequisite	courses  						|
 |------------ |:------------:|:---------------------------------------------|
 | CS1         |    C1        |                                              |   
-| CS2         |    C2        |                                              |   
+| CS2         |    C2        | CS1                                          |   
 | CS3         |    C3        | CS1, CS2                                     |
 | CS4         |    C4        | CS1, CS2                                     |
 | CS5         |    C5        | CS1, CS5,                                    |   
@@ -119,7 +119,9 @@ Therefore, each course is considered as vertex and edge provides the dependency 
 5. Final step, emits the registered event after sorting. event can be emitted only after sorting the vertex.  
 
 <pre>
-   // Emit the registered event asynchronously.
-   graphFactory.emitEvent();
+        // Emit the registered event asynchronously.
+        graphFactory.emitEvent();
 </pre>   
+
+Complete code example is available in https://github.com/mfh-114/chashi-lib-example repo.
 
