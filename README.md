@@ -15,31 +15,19 @@ Here is the user story. Bob recently passed the high school and now has been adm
 
 |Courses Name | Vertex Name  |
 |------------ |:------------:|
-|             |    C1        |
-|             |    C2        |
-|-------------|--------------|
-|             |    C3        |
-|-------------|--------------|
-|             |    C4        |
-|-------------|--------------|
-|             |    C5        |
-|-------------|--------------|
-|             |    C6        |
-|-------------|--------------|
-|             |    C7        |
-|-------------|--------------|
-|             |    C8        |
-|-------------|--------------|
-|             |    M1        |
-|-------------|--------------|
-|             |    M2        |
-|---------- --|--------------|
-|             |    M3        |
-|-------------|--------------|
-|             |    M4        |
-|-------------|--------------|
-|             |    R         |
-------------------------------
+| CS1         |    C1        |
+| CS2         |    C2        |
+| CS3         |    C3        |
+| CS4         |    C4        |
+| CS5         |    C5        |
+| CS6         |    C6        |
+| CS7         |    C7        |
+| CS8         |    C8        |
+| Math1       |    M1        |
+| Math2       |    M2        |
+| Math3       |    M3        |
+| Math4       |    M4        |
+| Final Report|    R         |
 
 He wants to know which courses need to be completed first to complete his graduation. So, we can help him to get 
 sorted order of the courses and fetch the sylabus of the courses asynchronously.
