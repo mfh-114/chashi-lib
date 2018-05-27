@@ -8,7 +8,8 @@ This library is engaged to produce food (refined data) for the dedicated busines
 
 In short sentence, this library returns sorted vertexes of a graph. Event of the vertex will be triggered asynchronously, if event is registered.  
 
-###How to use:  
+### How to use:  
+
 Here is the user story. Bob recently passed the high school and now has been admitted at college XYZ in Computer Science department. He needs only 12 courses to complete the degree program from college XYZ. 
 
 ![course graph](course_example_graph.png)
