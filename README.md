@@ -30,8 +30,8 @@ Here is the user story. Bob recently passed the high school and now has been adm
 
 We can transform above table and prerequisite courses to the following acyclic graph.  
 
-![Figure 1: Course Graph](course_example_graph.png)
-
+![Figure 1: Course Graph](course_example_graph.png)   
+*Figure 1*
 
 He wants to know which courses need to be completed first to complete his graduation. So, we can help him to get 
 sorted order of the courses and fetch the syllabus of the courses asynchronously.
