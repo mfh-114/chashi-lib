@@ -13,11 +13,9 @@ Here is the user story. Bob recently passed the high school and now has been adm
 
 ![course graph](course_example_graph.png)
 
-------------------------------
 |Courses Name | Vertex Name  |
 |------------ |:------------:|
 |             |    C1        |
-|-------------|--------------|
 |             |    C2        |
 |-------------|--------------|
 |             |    C3        |
