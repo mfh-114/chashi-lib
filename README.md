@@ -10,35 +10,44 @@ In short sentence, this library returns sorted vertexes of a graph. Event of the
 
 ### How to use:  
 
-Here is the user story. Bob recently passed the high school and now has been admitted at college XYZ in Computer Science department. He needs only 12 courses to complete the degree program from college XYZ. 
+Here is the user story. Bob recently passed the high school and now has been admitted at college XYZ in Computer Science department. He needs only 12 courses to complete the degree program from college XYZ.   
 
-![course graph](course_example_graph.png)
+|Course Names | Vertex Names | Prerequisite	courses  						|
+|------------ |:------------:|:---------------------------------------------|
+| CS1         |    C1        |                                              |   
+| CS2         |    C2        |                                              |   
+| CS3         |    C3        | CS1, CS2                                     |
+| CS4         |    C4        | CS1, CS2                                     |
+| CS5         |    C5        | CS1, CS5,                                    |   
+| CS6         |    C6        | CS1, CS2, CS3                                | 
+| CS7         |    C7        | CS1, CS2, CS3, CS4, CS5                      |  
+| CS8         |    C8        | CS1, CS2, CS3, CS6                           |
+| Math1       |    M1        |                                              |  
+| Math2       |    M2        | Math1                                        | 
+| Math3       |    M3        | Math1                                        |
+| Math4       |    M4        | Math1, Math2                                 |
+| Final Report|    R         | All courses                                  | 
 
-|Course Names | Vertex Names |
-|------------ |:------------:|
-| CS1         |    C1        |
-| CS2         |    C2        |
-| CS3         |    C3        |
-| CS4         |    C4        |
-| CS5         |    C5        |
-| CS6         |    C6        |
-| CS7         |    C7        |
-| CS8         |    C8        |
-| Math1       |    M1        |
-| Math2       |    M2        |
-| Math3       |    M3        |
-| Math4       |    M4        |
-| Final Report|    R         |
+We can transform above table and prerequisite courses to the following acyclic graph.  
+
+![Figure 1: Course Graph](course_example_graph.png)
+
 
 He wants to know which courses need to be completed first to complete his graduation. So, we can help him to get 
-sorted order of the courses and fetch the sylabus of the courses asynchronously.
+sorted order of the courses and fetch the syllabus of the courses asynchronously.
 
 Therefore, each course is considered as vertex and edge provides the dependency connection among courses. No more talk we will jump to the code now:
 
+1. At first we have to create GraphFactory object:  
 <pre>
 		// Create graph factory
 		GraphFactory graphFactory = new GraphFactory();
+</pre>
 
+2. Based on the above table create the vertexes and registered sample callback function to fetch the syllabus:   
+*Note: To simplicity purpose the callback is simple and will not fetch anything from online*  
+
+<pre>
 		// Create vertex for each courses and registered callback
 		Vertex c1 = graphFactory.createVertex("C1");
 		c1.registerCallBack(new CourseSyllabus("Introductory computer science"));
@@ -78,8 +87,11 @@ Therefore, each course is considered as vertex and edge provides the dependency 
 
 		Vertex r = graphFactory.createVertex("R");
 		r.registerCallBack(new CourseSyllabus("Senior Report"));
+</pre>
 
-		// Connect vertexes
+3. According to the figure 1, we will estabilish connection among vertexes:  
+<pre>
+		// Connect vertexes according to the above image of the graph
 		VertexConnection vConn = graphFactory.createVertexConnection();
 		vConn.from(c1).to(c2).connect();
 		vConn.from(c2).to(c3, c4, c5).connect();
@@ -93,11 +105,21 @@ Therefore, each course is considered as vertex and edge provides the dependency 
 		vConn.from(m2).to(m4).connect();
 		vConn.from(m3).to(r).connect();
 		vConn.from(m4).to(r).connect();
+</pre>
 
+4. Print out the sorted vertexes:   
+
+<pre>
 		List<Vertex> sortedVertex = graphFactory.sort();
-		graphFactory.emitEvent();
-
 		for (Vertex v : sortedVertex)
 			System.out.println(v.getVertexName());
-	
+
 </pre>
+
+5. Final step, emits the registered event after sorting. event can be emitted only after sorting the vertex.  
+
+<pre>
+   // Emit the registered event asynchronously.
+   graphFactory.emitEvent();
+</pre>   
+
